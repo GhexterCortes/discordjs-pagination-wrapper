@@ -1,6 +1,27 @@
 {
+  "name": "discordjs-pagination-wrapper",
+  "description": "A wrapper for package @acegoal07/discordjs-pagination",
+  "homepage": "https://github.com/GhexterCortes/discordjs-pagination-wrapper#readme",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "GhexterCortes",
+  "license": "MIT",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node ./test"
+  },
+  "devDependencies": {},
   "dependencies": {
     "@acegoal07/discordjs-pagination": "^1.2.2",
     "discord.js": "^13.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GhexterCortes/discordjs-pagination-wrapper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GhexterCortes/discordjs-pagination-wrapper/issues"
   }
 }

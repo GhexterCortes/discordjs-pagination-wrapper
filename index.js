@@ -1,35 +1,28 @@
 const paginationBase = require('@acegoal07/discordjs-pagination');
+const { Interaction, Message } = require('discord.js');
 
-modules.exports = class Pagination {
-    constructor({
-        interaction,
-        message,
-        pageList,
-        buttonList,
-        timeout,
-        replyMessage,
-        autoDelete,
-        privateReply,
-        progressBar,
-        proSlider,
-        proBar,
-        authorIndependent
-    }) {
-        this.interaction = interaction || null;
-        this.message = message || null;
-        this.pageList = pageList || [];
-        this.buttonList = buttonList || [];
-        this.timeout = timeout || 12000;
-        this.replyMessage = replyMessage || false;
-        this.autoDelete = autoDelete || false;
-        this.privateReply = privateReply || false;
-        this.progressBar = progressBar || false;
-        this.proSlider = proSlider || "▣";
-        this.proBar = proBar || "▢";
-        this.authorIndependent = authorIndependent || false;
+module.exports = class Pagination {
+    constructor() {
+        this.interaction = null;
+        this.message = null;
+        this.pageList = [];
+        this.buttonList = [];
+        this.timeout = 12000;
+        this.replyMessage = false;
+        this.autoDelete = false;
+        this.privateReply = false;
+        this.progressBar = false;
+        this.proSlider = "▣";
+        this.proBar = "▢";
+        this.authorIndependent = false;
         this.pagination = null;
     }
 
+    /**
+     * 
+     * @param {Interaction} interaction - Interaction
+     * @returns {Pagination}
+     */
     setInteraction(interaction) {
         if(!interaction) throw new Error("Interaction is required");
         if(!interaction?.applicationId) throw new Error("Invalid interaction");
@@ -39,6 +32,11 @@ modules.exports = class Pagination {
         return this;
     }
 
+    /**
+     * 
+     * @param {Message} message - Message
+     * @returns {Pagination}
+     */
     setMessage(message) {
         if(!message) throw new Error("Message is required");
         if(!message?.channel) throw new Error("Invalid message");
@@ -48,6 +46,11 @@ modules.exports = class Pagination {
         return this;
     }
 
+    /**
+     * 
+     * @param {Object[]} pageList - Page list
+     * @returns {Pagination}
+     */
     setPageList(pageList) {
         if(!pageList) throw new Error("Page list is required");
         if(!Array.isArray(pageList)) throw new Error("Invalid page list");
@@ -57,6 +60,11 @@ modules.exports = class Pagination {
         return this;
     }
 
+    /**
+     * 
+     * @param {Object[]} buttonList - Button list
+     * @returns {Pagination}
+     */
     setButtonList(buttonList) {
         if(!buttonList) throw new Error("Button list is required");
         if(!Array.isArray(buttonList)) throw new Error("Invalid button list");
@@ -66,6 +74,11 @@ modules.exports = class Pagination {
         return this;
     }
 
+    /**
+     * 
+     * @param {Number} timeout - Timeout in milliseconds
+     * @returns {Pagination}
+     */
     setTimeout(timeout) {
         if(!timeout) throw new Error("Timeout is required");
         if(typeof timeout !== "number") throw new Error("Invalid timeout");
@@ -75,33 +88,52 @@ modules.exports = class Pagination {
         return this;
     }
 
+    /**
+     * 
+     * @param {Boolean} replyMessage - Reply message
+     * @returns {Pagination}
+     */
     setReplyMessage(replyMessage) {
-        if(!replyMessage) throw new Error("Reply message is required");
         if(typeof replyMessage !== "boolean") throw new Error("Invalid reply message");
 
         this.replyMessage = replyMessage;
         return this;
     }
 
+    /**
+     * 
+     * @param {Boolean} replyMessage - Reply message
+     * @returns {Pagination}
+     */
     setAutoDelete(autoDelete) {
-        if(!autoDelete) throw new Error("Auto delete is required");
-        if(typeof autoDelete !== "boolean") throw new Error("Invalid auto delete");
+        if(typeof autoDelete !== "boolean") throw new Error("Auto delete is required and must be a boolean");
 
         this.autoDelete = autoDelete;
         return this;
     }
 
+    /**
+     * 
+     * @param {Boolean} replyMessage - Reply message
+     * @returns {Pagination}
+     */
     setPrivateReply(privateReply) {
-        if(!privateReply) throw new Error("Private reply is required");
-        if(typeof privateReply !== "boolean") throw new Error("Invalid private reply");
+        if(typeof privateReply !== "boolean") throw new Error("Private reply is required and must be a boolean");
 
         this.privateReply = privateReply;
         return this;
     }
 
+    /**
+     * 
+     * @param {Object[]} options - Options for progress bar
+     * @param {Boolean} options.progressBar - Progress bar
+     * @param {String} [options.proSlider="▣"] - Progress slider
+     * @param {String} [options.proBar="▢"] - Progress bar
+     * @returns {Pagination}
+     */
     setProgressBar({progressBar, proSlider, proBar}) {
-        if(!progressBar) throw new Error("Progress bar is required");
-        if(typeof progressBar !== "boolean") throw new Error("Invalid progress bar");
+        if(typeof progressBar !== "boolean") throw new Error("Progress bar is required and must be a boolean");
         if(proSlider) this.proSlider = proSlider;
         if(proBar) this.proBar = proBar;
 
@@ -109,14 +141,22 @@ modules.exports = class Pagination {
         return this;
     }
 
+    /**
+     * 
+     * @param {Boolean} replyMessage - Reply message
+     * @returns {Pagination}
+     */
     setAuthorIndependent(authorIndependent) {
-        if(!authorIndependent) throw new Error("Author independent is required");
-        if(typeof authorIndependent !== "boolean") throw new Error("Invalid author independent");
+        if(typeof authorIndependent !== "boolean") throw new Error("Author independent is required and must be a boolean");
 
         this.authorIndependent = authorIndependent;
         return this;
     }
 
+    /**
+     * 
+     * @returns {Pagination}
+     */
     async paginate() {
         this.pagination = await paginationBase({
             interaction: this.interaction,
