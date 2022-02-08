@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@acegoal07/discordjs-pagination": "^1.2.2",
+    "discord.js": "^13.5.0"
+  }
+}
