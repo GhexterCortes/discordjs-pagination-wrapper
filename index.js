@@ -158,20 +158,7 @@ module.exports = class Pagination {
      * @returns {Pagination}
      */
     async paginate() {
-        this.pagination = await paginationBase({
-            interaction: this.interaction,
-            message: this.message,
-            pageList: this.pageList,
-            buttonList: this.buttonList,
-            timeout: this.timeout,
-            replyMessage: this.replyMessage,
-            autoDelete: this.autoDelete,
-            privateReply: this.privateReply,
-            progressBar: this.progressBar,
-            proSlider: this.proSlider,
-            proBar: this.proBar,
-            authorIndependent: this.authorIndependent
-        });
+        this.pagination = await paginationBase(this);
 
         return this;
     }
